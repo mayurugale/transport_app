@@ -1,0 +1,30 @@
+.abc td,
+.abc th {
+    border: 1px solid black !important;
+}
+
+.top {
+    border-top: thin solid;
+    border-color: black;
+}
+
+.bottom {
+    border-bottom: thin solid;
+    border-color: black;
+}
+
+.left {
+    border-left: thin solid;
+    border-color: black;
+}
+
+.right {
+    border-right: thin solid;
+    border-color: black;
+}
+
+th,
+td {
+    padding: 15px;
+    font-weight: bold;
+}

@@ -1,0 +1,55 @@
+<h1 mat-dialog-title class="modalHeader">Transaction Details
+    <p style="float: right;">Total Amount :
+        <span>{{transactionData.totalAmount}} Rs.</span>
+    </p>
+</h1>
+<hr>
+<div mat-dialog-content>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <p><b>Bill Number : </b>{{transactionData.billNo}}</p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <p><b>Total Due Amount : </b>{{transactionData.totalDue}} Rs.</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-5">
+            <mat-form-field class="mat-form-field-fluid" style="width:100%" appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker7" [(ngModel)]="date" [ngModelOptions]="{standalone: true}"
+                    autocomplete="off" required>
+                <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                <mat-datepicker #picker7></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-7">
+            <mat-form-field class="mat-form-field-fluid" style="width:100%" appearance="outline">
+                <mat-label>Discription</mat-label>
+                <textarea matInput [(ngModel)]="discription" [ngModelOptions]="{standalone: true}" autocomplete="off">
+                                                                                        </textarea>
+
+            </mat-form-field>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="mat-dialog-footer">
+    <div style="float: right;">
+        <button mat-flat-button color="primary" (click)="paid()">
+            Paid</button>
+        &nbsp;&nbsp;
+        <button mat-flat-button color="warn" (click)="cancel()">Cancel</button>
+    </div>
+</div>

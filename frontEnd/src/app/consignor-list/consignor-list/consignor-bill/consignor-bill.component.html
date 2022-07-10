@@ -1,0 +1,96 @@
+<h1 style="font-weight:bolder">Consignor bill List
+    <p style="float: right;">Total Due Amount :
+        <span>{{objData?.totalDue}} Rs.</span>
+    </p>
+</h1>
+
+<mat-card>
+    <mat-card-content>
+
+        <div class="example-container mat-elevation-z8 mt-3">
+            <div class="example-loading-shade">
+            </div>
+
+            <div class="example-table-container">
+
+                <table mat-table [dataSource]="data" class="example-table" matSort>
+                    <!-- Number Column -->
+                    <ng-container matColumnDef="billNo">
+                        <th mat-header-cell *matHeaderCellDef>Bill Number</th>
+                        <td mat-cell *matCellDef="let row">{{row.billNo}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="billDate">
+                        <th mat-header-cell *matHeaderCellDef>Bill Date</th>
+                        <td mat-cell *matCellDef="let row">{{row.billDate | date:'dd/MM/yyyy'}}</td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef>Bill Type</th>
+                        <td mat-cell *matCellDef="let row">{{row.type}}</td>
+                    </ng-container> -->
+
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="partyName">
+                        <th mat-header-cell *matHeaderCellDef>Party Name</th>
+                        <td mat-cell *matCellDef="let row">{{row.partyName?.consignorName}}</td>
+                    </ng-container>
+
+                    <!-- State Column -->
+                    <ng-container matColumnDef="lrSelection">
+                        <th mat-header-cell *matHeaderCellDef>LR No.</th>
+                        <td mat-cell *matCellDef="let row">{{row.lrNo}}</td>
+                    </ng-container>
+
+                    <!-- Created Column -->
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Amount
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.totalAmount}}</td>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="CGST">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            CGST
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.CGST}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="SGST">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            SGST
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.SGST}}</td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-icon-button color="primary" (click)="transaction(row)">
+                                <mat-icon>thumb_up</mat-icon>
+                            </button>
+
+
+                            <!-- <button mat-icon-button color="primary" (click)="viewBill(row)">
+                <mat-icon>visibility</mat-icon>
+            </button>
+
+            <button mat-icon-button color="primary" (click)="editBill(row)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteBill(row)">
+                <mat-icon aria-label="Edit">delete</mat-icon>
+            </button> -->
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+
+            <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10, 25, 50, 100]">
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>
