@@ -109,17 +109,23 @@ router.post('/transaction/add', function (req, res, next) {
             res.json({ status: false });
         }
         else {
-            let myquery1 = { _id: { $in: bill_id } };
-            let newvalues1 = { $set: { billPaid: true } };
-            mongodb.update(req, tableName2, myquery1, newvalues1, function (err, r) {
-                if (err) {
-                    console.log(tableName2 + "update Error :-", err);
-                    res.json({ status: false });
-                }
-                else {
-                    res.json({ status: true })
-                }
-            })
+            if (obj.pendingAmount == 0 || obj.pendingAmount == "0") {
+                let myquery1 = { _id: { $in: bill_id } };
+
+                let newvalues1 = { $set: { billPaid: true } };
+                mongodb.update(req, tableName2, myquery1, newvalues1, function (err, r) {
+                    if (err) {
+                        console.log(tableName2 + "update Error :-", err);
+                        res.json({ status: false });
+                    }
+                    else {
+                        res.json({ status: true })
+                    }
+                })
+            }
+            else {
+                res.json({ status: true })
+            }
         }
     })
 });
