@@ -8,6 +8,7 @@ import { ConsignorListComponent } from './consignor-list/consignor-list.componen
 import { DriverListComponent } from './driver-list/driver-list.component';
 import { HomeComponent } from './home/home.component';
 import { LrListComponent } from './lr-list/lr-list.component';
+import { LrPdfComponent } from './lr-list/lr-pdf/lr-pdf.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 const routes: Routes = [
@@ -19,47 +20,48 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-
       {
         path: 'lr-list',
-        component: LrListComponent
+        component: LrListComponent,
       },
       {
         path: 'vehicle-list',
-        component: VehicleListComponent
+        component: VehicleListComponent,
       },
       {
         path: 'bill-list',
-        component: BillListComponent
+        component: BillListComponent,
       },
       {
         path: 'consignor-list',
-        component: ConsignorListComponent
+        component: ConsignorListComponent,
       },
       {
         path: 'driver-list',
-        component: DriverListComponent
+        component: DriverListComponent,
       },
       {
         path: 'bill-pdf',
-        component: BillPdfComponent
+        component: BillPdfComponent,
       },
       {
         path: 'bank-details',
-        component: BankdetailsComponent
+        component: BankdetailsComponent,
       },
       {
         path: 'consignor-bill',
-        component: ConsignorBillComponent
-      }
-
-    ]
+        component: ConsignorBillComponent,
+      },
+      {
+        path: 'lr-pdf',
+        component: LrPdfComponent,
+      },
+    ],
   },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

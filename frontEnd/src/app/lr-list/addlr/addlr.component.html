@@ -1,325 +1,410 @@
 <h1 mat-dialog-title class="modalHeader">LR Details</h1>
 <div mat-dialog-content>
-    <mat-tab-group>
-        <mat-tab label="LR Info">
+  <mat-tab-group>
+    <mat-tab label="LR Info">
+      <form class="mt-4" [formGroup]="lrForm">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4"
+              >LR NO <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>LR NO</mat-label>
+              <input matInput formControlName="lrNo" required />
+            </mat-form-field>
+          </div>
 
-            <form class="mt-4" [formGroup]="lrForm">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4"
+              >LR Date: <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="lrDate"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngFor="let validation of error_messege.lrDate">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('lrDate')?.hasError(validation.type) &&
+                    (f.get('lrDate')?.dirty || f.get('lrDate')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">LR NO
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>LR NO</mat-label>
-                            <input matInput formControlName="lrNo" required>
-                        </mat-form-field>
-                    </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4"
+              >Vehicle No: <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Vehicle No</mat-label>
+              <mat-select
+                formControlName="vehicleNo"
+                (selectionChange)="onChangeVehicle($event)"
+                required
+              >
+                <mat-option value="" disabled>Select Value</mat-option>
+                <mat-option
+                  *ngFor="let data of vehicleData"
+                  [value]="data.vehicleNo"
+                >
+                  {{ data.vehicleNo }}
+                </mat-option>
+              </mat-select>
 
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">LR Date:
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="lrDate" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngFor="let validation of error_messege.lrDate">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('lrDate')?.hasError(validation.type) && (f.get('lrDate')?.dirty || f.get('lrDate')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+              <mat-error *ngFor="let validation of error_messege?.vehicleNo">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('vehicleNo')?.hasError(validation.type) &&
+                    (f.get('vehicleNo')?.dirty || f.get('vehicleNo')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-icon
+              class="mt-1"
+              style="font-size: 40px; cursor: pointer"
+              color="primary"
+              (click)="AddVehicle()"
+              >add
+            </mat-icon>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4"
+              >Vehicle Type: <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Vehicle Type</mat-label>
+              <input matInput formControlName="vehicleType" required />
+              <mat-error *ngFor="let validation of error_messege.vehicleType">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('vehicleType')?.hasError(validation.type) &&
+                    (f.get('vehicleType')?.dirty ||
+                      f.get('vehicleType')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-                </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4">consignor</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Consignor</mat-label>
+              <mat-select
+                formControlName="consignor"
+                (selectionChange)="onChangeConsignor($event)"
+                required
+              >
+                <mat-option value="" disabled>Select Value</mat-option>
+                <mat-option
+                  *ngFor="let data of consignorData"
+                  [value]="data.consignorName"
+                >
+                  {{ data.consignorName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of error_messege.consignor">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('consignor')?.hasError(validation.type) &&
+                    (f.get('consignor')?.dirty || f.get('consignor')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-icon
+              class="mt-1"
+              style="font-size: 40px; cursor: pointer"
+              color="primary"
+              (click)="AddConsignor()"
+              >add
+            </mat-icon>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4">Consignor Gst Number</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <input matInput formControlName="consignorGstNumber" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4">Consignee</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Consignee</mat-label>
+              <mat-select
+                formControlName="consignee"
+                (selectionChange)="onChangeConsignee($event)"
+                required
+              >
+                <mat-option value="" disabled>Select Value</mat-option>
+                <mat-option
+                  *ngFor="let data of consignorData"
+                  [value]="data.consignorName"
+                >
+                  {{ data.consignorName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of error_messege.consignee">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('consignee')?.hasError(validation.type) &&
+                    (f.get('consignee')?.dirty || f.get('consignee')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-icon
+              class="mt-1"
+              style="font-size: 40px; cursor: pointer"
+              color="primary"
+              (click)="AddConsignor()"
+              >add
+            </mat-icon>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4">Consignee GST Number</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Consignee Gst Number</mat-label>
+              <input matInput formControlName="consigneeGstNumber" />
+              <mat-error
+                *ngFor="let validation of error_messege.consigneeGstNumber"
+              >
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('consigneeGstNumber')?.hasError(validation.type) &&
+                    (f.get('consigneeGstNumber')?.dirty ||
+                      f.get('consigneeGstNumber')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4"
+              >Location (From): <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>From Location</mat-label>
+              <input matInput formControlName="fromLocation" required />
+              <mat-error *ngFor="let validation of error_messege.fromLocation">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('fromLocation')?.hasError(validation.type) &&
+                    (f.get('fromLocation')?.dirty ||
+                      f.get('fromLocation')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4"
+              >Location (To): <span class="required-asterisk">*</span></label
+            >
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>To Location</mat-label>
+              <input matInput formControlName="toLocation" required />
+              <mat-error *ngFor="let validation of error_messege.toLocation">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('toLocation')?.hasError(validation.type) &&
+                    (f.get('toLocation')?.dirty || f.get('toLocation')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4">Quantity</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input matInput formControlName="quantity" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-2"></div>
 
+          <div class="col-md-2">
+            <label class="mt-4">Amount</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Amount</mat-label>
+              <input
+                type="number"
+                matInput
+                formControlName="amount"
+                (input)="changeAmount($event)"
+                required
+              />
+              <mat-error *ngFor="let validation of error_messege.amount">
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('amount')?.hasError(validation.type) &&
+                    (f.get('amount')?.dirty || f.get('amount')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Vehicle No:
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Vehicle No</mat-label>
-                            <mat-select formControlName="vehicleNo" (selectionChange)="onChangeVehicle($event)"
-                                required>
-                                <mat-option value="" disabled>Select Value</mat-option>
-                                <mat-option *ngFor="let data of vehicleData" [value]="data.vehicleNo">
-                                    {{data.vehicleNo}}
-                                </mat-option>
-                            </mat-select>
-                            <!-- <input matInput formControlName="vehicleNo" #input [value]="input.value.toUpperCase()"
-                                required> -->
-                            <mat-error *ngFor="let validation of error_messege?.vehicleNo">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('vehicleNo')?.hasError(validation.type) && (f.get('vehicleNo')?.dirty || f.get('vehicleNo')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-icon class="mt-1" style="font-size: 40px;cursor: pointer;" color="primary"
-                            (click)="AddVehicle()">add
-                        </mat-icon>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">Vehicle Type:
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Vehicle Type</mat-label>
-                            <input matInput formControlName="vehicleType" required>
-                            <mat-error *ngFor="let validation of error_messege.vehicleType">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('vehicleType')?.hasError(validation.type) && (f.get('vehicleType')?.dirty || f.get('vehicleType')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4">Invoice No</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Invoice No</mat-label>
+              <input matInput formControlName="invoiceNo" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-2"></div>
 
+          <div class="col-md-2">
+            <label class="mt-4">Other Charges</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Other Charges</mat-label>
+              <input
+                type="number"
+                matInput
+                formControlName="otherChar"
+                (input)="changeOtherAmount($event)"
+              />
+            </mat-form-field>
+          </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">consignor</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Consignor</mat-label>
-                            <mat-select formControlName="consignor" (selectionChange)="onChangeConsignor($event)"
-                                required>
-                                <mat-option value="" disabled>Select Value</mat-option>
-                                <mat-option *ngFor="let data of consignorData" [value]="data.consignorName">
-                                    {{data.consignorName}}
-                                </mat-option>
-                            </mat-select>
-                            <!-- <input matInput formControlName="consignor" required> -->
-                            <mat-error *ngFor="let validation of error_messege.consignor">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('consignor')?.hasError(validation.type) && (f.get('consignor')?.dirty || f.get('consignor')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-icon class="mt-1" style="font-size: 40px;cursor: pointer;" color="primary"
-                            (click)="AddConsignor()">add
-                        </mat-icon>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">Consignor Gst Number</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <input matInput formControlName="consignorGstNumber">
-                            <!-- <mat-select formControlName="consignor" required>
-                                <mat-option value="" disabled>Select Value</mat-option>
-                                <mat-option *ngFor="let data of consignorData" [value]="data.consignorName">
-                                    {{data.consignorName}}
-                                </mat-option>
-                            </mat-select> -->
-                        </mat-form-field>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Consignee</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Consignee</mat-label>
-                            <mat-select formControlName="consignee" (selectionChange)="onChangeConsignee($event)"
-                                required>
-                                <mat-option value="" disabled>Select Value</mat-option>
-                                <mat-option *ngFor="let data of consignorData" [value]="data.consignorName">
-                                    {{data.consignorName}}
-                                </mat-option>
-                            </mat-select>
-                            <!-- <input matInput formControlName="consignee" required> -->
-                            <mat-error *ngFor="let validation of error_messege.consignee">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('consignee')?.hasError(validation.type) && (f.get('consignee')?.dirty || f.get('consignee')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-icon class="mt-1" style="font-size: 40px;cursor: pointer;" color="primary"
-                            (click)="AddConsignor()">add
-                        </mat-icon>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">Consignee GST Number</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Consignee Gst Number</mat-label>
-                            <input matInput formControlName="consigneeGstNumber">
-                            <mat-error *ngFor="let validation of error_messege.consigneeGstNumber">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('consigneeGstNumber')?.hasError(validation.type) && (f.get('consigneeGstNumber')?.dirty || f.get('consigneeGstNumber')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Location (From):
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>From Location</mat-label>
-                            <input matInput formControlName="fromLocation" required>
-                            <mat-error *ngFor="let validation of error_messege.fromLocation">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('fromLocation')?.hasError(validation.type) && (f.get('fromLocation')?.dirty || f.get('fromLocation')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">Location (To):
-                            <span class="required-asterisk">*</span></label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>To Location</mat-label>
-                            <input matInput formControlName="toLocation" required>
-                            <mat-error *ngFor="let validation of error_messege.toLocation">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('toLocation')?.hasError(validation.type) && (f.get('toLocation')?.dirty || f.get('toLocation')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Quantity</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Quantity</mat-label>
-                            <input matInput formControlName="quantity">
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-md-2"></div>
-
-                    <div class="col-md-2">
-                        <label class="mt-4">Amount</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Amount</mat-label>
-                            <input type="number" matInput formControlName="amount" (input)="changeAmount($event)"
-                                required>
-                            <mat-error *ngFor="let validation of error_messege.amount">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('amount')?.hasError(validation.type) && (f.get('amount')?.dirty || f.get('amount')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-
-                    </div>
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Invoice No</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Invoice No</mat-label>
-                            <input matInput formControlName="invoiceNo">
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-md-2"></div>
-
-                    <div class="col-md-2">
-                        <label class="mt-4">Other Charges</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Other Charges</mat-label>
-                            <input type="number" matInput formControlName="otherChar"
-                                (input)="changeOtherAmount($event)">
-                            <!-- <mat-error *ngFor="let validation of error_messege.amount">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('amount')?.hasError(validation.type) && (f.get('amount')?.dirty || f.get('amount')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error> -->
-                        </mat-form-field>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="mt-4">Total Amount</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Total Amount</mat-label>
-                            <input matInput formControlName="totalAmount" readonly>
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <label class="mt-4">Amount Acquisition Date</label>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Amount Acquisition Date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="amountAcquisitionDate" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                            <mat-error *ngFor="let validation of error_messege.amountAcquisitionDate">
-                                <mat-error class="error-messege"
-                                    *ngIf="f.get('amountAcquisitionDate')?.hasError(validation.type) && (f.get('amountAcquisitionDate')?.dirty || f.get('amountAcquisitionDate')?.touched)">
-                                    {{validation.message}}
-                                </mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </form>
-        </mat-tab>
-
-    </mat-tab-group>
-
+        <div class="row">
+          <div class="col-md-2">
+            <label class="mt-4">Total Amount</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Total Amount</mat-label>
+              <input matInput formControlName="totalAmount" readonly />
+            </mat-form-field>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <label class="mt-4">Amount Acquisition Date</label>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>Amount Acquisition Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                formControlName="amountAcquisitionDate"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error
+                *ngFor="let validation of error_messege.amountAcquisitionDate"
+              >
+                <mat-error
+                  class="error-messege"
+                  *ngIf="
+                    f.get('amountAcquisitionDate')?.hasError(validation.type) &&
+                    (f.get('amountAcquisitionDate')?.dirty ||
+                      f.get('amountAcquisitionDate')?.touched)
+                  "
+                >
+                  {{ validation.message }}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 <div class="mat-dialog-footer">
-    <div style="float: right;">
-        <button mat-flat-button color="primary" (click)="submit()">
-            Submit</button>
-        &nbsp;&nbsp;
-        <button mat-flat-button color="warn" (click)="cancel()">Cancel</button>
-    </div>
+  <div style="float: right">
+    <button mat-flat-button color="primary" (click)="submit()">Submit</button>
+    &nbsp;&nbsp;
+    <button mat-flat-button color="warn" (click)="cancel()">Cancel</button>
+  </div>
 </div>

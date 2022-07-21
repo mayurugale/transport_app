@@ -11,12 +11,22 @@ import { AddlrComponent } from './addlr/addlr.component';
 @Component({
   selector: 'app-lr-list',
   templateUrl: './lr-list.component.html',
-  styleUrls: ['./lr-list.component.css']
+  styleUrls: ['../bill-list/bill-list.component.css'],
 })
 export class LrListComponent implements OnInit {
-  displayedColumns: string[] = ['lrNo', 'lrDate', 'vehicleNo', 'fromLocation', 'toLocation',
-    'consignor', 'consignee', 'invoiceNo',
-    'amount', 'amountAcquisitionDate', 'action'];
+  displayedColumns: string[] = [
+    'lrNo',
+    'lrDate',
+    'vehicleNo',
+    'fromLocation',
+    'toLocation',
+    'consignor',
+    'consignee',
+    'invoiceNo',
+    'amount',
+    'amountAcquisitionDate',
+    'action',
+  ];
   // exampleDatabase: ExampleHttpDatabase | null;
   data: any[] = [
     // {
@@ -38,26 +48,29 @@ export class LrListComponent implements OnInit {
   isRateLimitReached = false;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
-  constructor(public dialog: MatDialog, private cs: CommonService, private route: Router) { }
+  constructor(
+    public dialog: MatDialog,
+    private cs: CommonService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getLR()
-
+    this.getLR();
   }
 
   getLR() {
     this.cs.getLR().subscribe((res: any) => {
       this.data = res;
-      this.datasource = new MatTableDataSource(this.data)
+      this.datasource = new MatTableDataSource(this.data);
       this.datasource.paginator = this.paginator;
-      console.log(res)
-    })
+      console.log(res);
+    });
   }
 
   createLR() {
     const dialogRef = this.dialog.open(AddlrComponent, {
-      height: "auto",
-      width: "1200px"
+      height: 'auto',
+      width: '1200px',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       this.getLR();
@@ -71,9 +84,9 @@ export class LrListComponent implements OnInit {
 
   editLr(data: any) {
     const dialogRef = this.dialog.open(AddlrComponent, {
-      height: "auto",
-      width: "1200px",
-      data: data
+      height: 'auto',
+      width: '1200px',
+      data: data,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       this.getLR();
@@ -82,11 +95,11 @@ export class LrListComponent implements OnInit {
 
   openDialog(row: any) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      height: "160px",
-      width: "400px",
+      height: '160px',
+      width: '400px',
       data: {
-        value: row
-      }
+        value: row,
+      },
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result.confirmed == true) {
@@ -98,12 +111,14 @@ export class LrListComponent implements OnInit {
   deleteLr(data: any) {
     let obj = {
       _id: data._id,
-      isDeleted: true
-    }
+      isDeleted: true,
+    };
     this.cs.updateLR(obj).subscribe((res: any) => {
       alert(' Record Delete Successfully');
-      this.getLR()
-    })
+      this.getLR();
+    });
   }
-
+  viewBill(data: any) {
+    this.route.navigate(['../lr-pdf'], { state: { data: data } });
+  }
 }

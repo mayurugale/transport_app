@@ -1,55 +1,48 @@
-<div class="row">
-    <div class="col-md-8"></div>
-    <div style="margin-top: 5px; display: inline-flex;  " fxLayoutAlign="end" fxLayoutGap="5px" class="col-md-4">
-        <button mat-button class="b" color="primary" (click)="openPDF()">
-            Download Bill
-            <mat-icon mat-icon-button>get_app</mat-icon>
-        </button>
+<nav class="navbar navbar-light bg-light">
+  <button mat-button class="b" color="primary" (click)="openPDF()">
+    Download Bill
+    <mat-icon mat-icon-button>get_app</mat-icon>
+  </button>
+  <button mat-button class="b" (click)="back()">Back</button>
+</nav>
 
-
-        <button mat-button class="b" (click)="back()">
-            Back
-        </button>
-
-    </div>
-</div>
 <div class="container">
-    <div class="row">
-        <div id="htmlData" style="margin: 10px;">
-            <div style="margin-top: 310px;">
-
+  <div class="row">
+    <div id="htmlData">
+      <!-- style="margin: 10px" -->
+      <!-- <div style="margin-top: 310px"></div> -->
+      <!-- <h3><b>From</b></h3> -->
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-10">
+            <div class="row">
+              <h1>
+                <b>{{ data?.partyName.consignorName }}</b>
+              </h1>
             </div>
-            <!-- <h3><b>From</b></h3> -->
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-10">
-
-                        <div class="row">
-                            <h1><b>{{data?.partyName.consignorName}}</b></h1>
-                        </div>
-                        <div class="row">
-                            <b>{{data?.partyName.address}}</b>
-                        </div>
-                        <div class="row">
-                            <b>GSTIN No {{data?.partyName.consignorGSTNumber}}</b>
-                        </div>
-                        <div class="row">
-                            <b>Mobile Number {{data?.partyName.mobileNumber}}</b>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="row mt-5">
-                            <b style="float:right;">Bill No: {{data?.billNo}}</b>
-
-                        </div>
-                        <div class="row">
-                            <b style="float:right;">Bill Date: {{data?.billDate | date:'dd-MMM-yyyy'}}</b>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="row">
+              <b>{{ data?.partyName.address }}</b>
             </div>
-            <!-- <table class="table table-bordered abc">
+            <div class="row">
+              <b>GSTIN No {{ data?.partyName.consignorGSTNumber }}</b>
+            </div>
+            <div class="row">
+              <b>Mobile Number {{ data?.partyName.mobileNumber }}</b>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row mt-5">
+              <b style="float: right">Bill No: {{ data?.billNo }}</b>
+            </div>
+            <div class="row">
+              <b style="float: right"
+                >Bill Date: {{ data?.billDate | date: "dd-MMM-yyyy" }}</b
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <table class="table table-bordered abc">
         <tbody>
             <tr>
                 <th>Customer Account #</th>
@@ -122,108 +115,116 @@
             </tr>
         </tbody>
     </table> -->
-            <!-- <h3><b>To</b></h3> -->
-            <table border="1px solid black" class="table table-bordered abc mb-3 mt-3">
-                <tbody>
-                    <tr>
-                        <th>SR NO.</th>
-                        <th>LR DATE</th>
-                        <th>LR NO.</th>
-                        <th>VEHICLE NO</th>
-                        <th>TOWN(Party)</th>
-                        <th>IN NO.</th>
-                        <th>VEHICLE TYPE</th>
-                        <th>FREIGHT</th>
-                        <th>OTHER CHAR</th>
-                        <th>TOTAL AMT</th>
-                    </tr>
-                    <tr *ngFor="let data of data.lr let i= index;">
-                        <td>{{i + 1}}</td>
-                        <td>{{data.lrDate | date:'dd-MMM-yyyy'}}</td>
-                        <td>{{data.lrNo}}</td>
-                        <td>{{data.vehicleNo}}</td>
-                        <td>{{data.consignee}}</td>
-                        <td>{{data.invoiceNo}}</td>
-                        <td>{{data.vehicleType}}</td>
-                        <td>{{data?.amount | number:'1.2-2'}}</td>
-                        <td>{{data.otherChar}}</td>
-                        <td>{{data?.totalAmount | number:'1.2-2'}}</td>
-                    </tr>
+      <!-- <h3><b>To</b></h3> -->
+      <table
+        border="1px solid black"
+        class="table table-bordered abc mb-3 mt-3"
+      >
+        <tbody>
+          <tr>
+            <th>SR NO.</th>
+            <th>LR DATE</th>
+            <th>LR NO.</th>
+            <th>VEHICLE NO</th>
+            <th>TOWN(Party)</th>
+            <th>IN NO.</th>
+            <th>VEHICLE TYPE</th>
+            <th>FREIGHT</th>
+            <th>OTHER CHAR</th>
+            <th>TOTAL AMT</th>
+          </tr>
+          <tr *ngFor="let data of data.lr; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ data.lrDate | date: "dd-MMM-yyyy" }}</td>
+            <td>{{ data.lrNo }}</td>
+            <td>{{ data.vehicleNo }}</td>
+            <td>{{ data.consignee }}</td>
+            <td>{{ data.invoiceNo }}</td>
+            <td>{{ data.vehicleType }}</td>
+            <td>{{ data?.amount | number: "1.2-2" }}</td>
+            <td>{{ data.otherChar }}</td>
+            <td>{{ data?.totalAmount | number: "1.2-2" }}</td>
+          </tr>
 
-                    <tr>
-                        <td colspan="10" style="padding: 30px;"></td>
-                        <!-- <td></td>
+          <tr>
+            <td colspan="10" style="padding: 30px"></td>
+            <!-- <td></td>
                 <td></td>
                 <td></td>
                 <td></td> -->
-                    </tr>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <b>In words Rs. {{ data.amountInWord }}</b>
+            </td>
+            <td></td>
+            <td></td>
+            <td>{{ data.amount | number: "1.2-2" }}</td>
+            <td></td>
+            <td>{{ data.grossAmount | number: "1.2-2" }}</td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <span style="display: inline-flex"
+                ><b>Bank Details</b> : &nbsp;&nbsp;
+                <p>
+                  <b>{{ bankDetails?.bankDetail }}</b>
+                </p>
+              </span>
+            </td>
 
-                    <tr>
-                        <td colspan="5">
-                            <b>In words Rs. {{data.amountInWord}}</b>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>{{data.amount | number:'1.2-2'}}</td>
-                        <td></td>
-                        <td>{{data.grossAmount | number:'1.2-2'}}</td>
-                    </tr>
-                    <tr>
+            <td><b>CGST</b></td>
+            <td>{{ data.GST | number: "1.2-2" }}%</td>
+            <td>{{ data.CGST | number: "1.2-2" }}</td>
+          </tr>
 
-                        <td colspan="7">
-                            <span style="display: inline-flex;"><b>Bank Details</b> : &nbsp;&nbsp; <p>
-                                    <b>{{bankDetails?.bankDetail}}</b>
-                                </p>
-                            </span>
+          <tr>
+            <td colspan="7">
+              <span style="display: inline-flex"
+                ><b>Bank A/C No</b> : &nbsp;&nbsp;
+                <p>
+                  <b>{{ bankDetails?.accountNumber }} </b>
+                </p></span
+              >
+            </td>
+            <td><b>SGST</b></td>
+            <td>{{ data.GST | number: "1.2-2" }}%</td>
+            <td>{{ data.SGST | number: "1.2-2" }}</td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <span style="display: inline-flex"
+                ><b>IFSC Code</b> : &nbsp;&nbsp;
+                <p>
+                  <b>{{ bankDetails?.IFSC }}</b>
+                </p>
+              </span>
+            </td>
 
-                        </td>
+            <td></td>
+            <td><b>Adv Rs.</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <span style="display: inline-flex"
+                ><b>Nick Name</b> : &nbsp;&nbsp;
+                <p>
+                  <b>{{ bankDetails?.userName }}</b>
+                </p>
+                , <b>GST No </b> :
+                <p>
+                  <b>{{ bankDetails?.GST }}</b>
+                </p>
+              </span>
+            </td>
 
-                        <td><b>CGST</b></td>
-                        <td>{{data.GST | number:'1.2-2'}}%</td>
-                        <td>{{data.CGST | number:'1.2-2'}}</td>
-                    </tr>
-
-                    <tr>
-
-                        <td colspan="7">
-                            <span style="display: inline-flex;"><b>Bank A/C No</b> : &nbsp;&nbsp; <p>
-                                    <b>{{bankDetails?.accountNumber}}
-                                    </b>
-                                </p></span>
-                        </td>
-                        <td><b>SGST</b></td>
-                        <td>{{data.GST | number:'1.2-2'}}%</td>
-                        <td>{{data.SGST | number:'1.2-2'}}</td>
-                    </tr>
-                    <tr>
-
-                        <td colspan="7">
-                            <span style="display: inline-flex;"><b>IFSC Code</b> : &nbsp;&nbsp; <p>
-                                    <b>{{bankDetails?.IFSC}}</b>
-                                </p>
-                            </span>
-                        </td>
-
-                        <td></td>
-                        <td><b>Adv Rs.</b></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-
-                        <td colspan="7">
-                            <span style="display: inline-flex;"><b>Nick Name</b> : &nbsp;&nbsp; <p>
-                                    <b>{{bankDetails?.userName}}</b>
-                                </p>, <b>GST No </b> : <p><b>{{bankDetails?.GST}}</b>
-                                </p>
-                            </span>
-                        </td>
-
-                        <td></td>
-                        <td><b>Total Rs</b></td>
-                        <td>{{data.totalAmount | number:'1.2-2'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <td></td>
+            <td><b>Total Rs</b></td>
+            <td>{{ data.totalAmount | number: "1.2-2" }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

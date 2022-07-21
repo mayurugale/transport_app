@@ -1,18 +1,15 @@
-<div class="topnav" style="margin: 20px;">
-    <a class="active" href="#">Home</a>
-    <a [routerLink]="['./lr-list']">LR</a>
-    <a [routerLink]="['./bill-list']">Bill</a>
-    <a [routerLink]="['./consignor-list']">Consignor</a>
-    <a [routerLink]="['./vehicle-list']">Vehicle</a>
-    <a [routerLink]="['./driver-list']">Driver</a>
-    <a (click)="createBankDetails()" style="float: right;cursor: pointer;">
-        <mat-icon>info</mat-icon>
-    </a>
+<div class="topnav" style="margin: 20px">
+  <a routerLink="/" class="active">Home</a>
+  <a [routerLink]="['./lr-list']">LR</a>
+  <a [routerLink]="['./bill-list']">Bill</a>
+  <a [routerLink]="['./consignor-list']">Consignor</a>
+  <a [routerLink]="['./vehicle-list']">Vehicle</a>
+  <a [routerLink]="['./driver-list']">Driver</a>
+  <a (click)="createBankDetails()" style="float: right; cursor: pointer">
+    <mat-icon>info</mat-icon>
+  </a>
 </div>
-
-<hr>
-
-<hr>
+<hr />
 <div class="container">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
