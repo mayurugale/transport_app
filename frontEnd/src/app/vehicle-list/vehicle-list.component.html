@@ -1,60 +1,88 @@
-<h1 style="font-weight:bolder">Vehicle List</h1>
-
 <mat-card>
-    <mat-card-content>
-        <div class="row">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-6">
+        <h1 style="font-weight: bolder">Vehicle List</h1>
+      </div>
+      <div class="col-6" style="text-align: end">
+        <button
+          style="background-color: #595d94; color: white"
+          mat-flat-button
+          (click)="createVehicle()"
+        >
+          Add Vehicle
+        </button>
+      </div>
+    </div>
+    <!-- <div class="row">
             <div class="col-12">
                 <button style="float:right;align-items: flex-end; width: 10%;" mat-flat-button color="primary"
                     (click)="createVehicle()">Add Vehicle</button>
 
             </div>
-        </div>
-        <div class="example-container mat-elevation-z8 mt-3">
-            <div class="example-loading-shade">
-            </div>
+        </div> -->
+    <div class="example-container mat-elevation-z8 mt-3">
+      <div class="example-loading-shade"></div>
 
-            <div class="example-table-container">
+      <div class="example-table-container">
+        <table
+          mat-table
+          [dataSource]="datasource"
+          class="example-table"
+          matSort
+        >
+          <ng-container matColumnDef="vehicleName">
+            <th mat-header-cell *matHeaderCellDef>Vehicle Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.vehicleName }}</td>
+          </ng-container>
 
-                <table mat-table [dataSource]="datasource" class="example-table" matSort>
-                    <ng-container matColumnDef="vehicleName">
-                        <th mat-header-cell *matHeaderCellDef>Vehicle Name</th>
-                        <td mat-cell *matCellDef="let row">{{row.vehicleName}}</td>
-                    </ng-container>
+          <ng-container matColumnDef="vehicleNo">
+            <th mat-header-cell *matHeaderCellDef>Vehicle Number</th>
+            <td mat-cell *matCellDef="let row">{{ row.vehicleNo }}</td>
+          </ng-container>
 
-                    <ng-container matColumnDef="vehicleNo">
-                        <th mat-header-cell *matHeaderCellDef>Vehicle Number</th>
-                        <td mat-cell *matCellDef="let row">{{row.vehicleNo}}</td>
-                    </ng-container>
+          <ng-container matColumnDef="vehicleType">
+            <th mat-header-cell *matHeaderCellDef>Vehicle Type</th>
+            <td mat-cell *matCellDef="let row">{{ row.vehicleType }}</td>
+          </ng-container>
 
-                    <ng-container matColumnDef="vehicleType">
-                        <th mat-header-cell *matHeaderCellDef>Vehicle Type</th>
-                        <td mat-cell *matCellDef="let row">{{row.vehicleType}}</td>
-                    </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let row">
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="addTransaction(row)"
+              >
+                <mat-icon aria-label="Edit">Transaction</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="editVehicle(row)"
+              >
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteVehiclel(row)"
+              >
+                <mat-icon aria-label="Edit">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
 
-                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-                        <td mat-cell *matCellDef="let row">
-                            <button mat-icon-button color="primary" (click)="addTransaction(row)">
-                                <mat-icon aria-label="Edit">Transaction</mat-icon>
-                            </button>
-                            <button mat-icon-button color="primary" (click)="editVehicle(row)">
-                                <mat-icon aria-label="Edit">edit</mat-icon>
-                            </button>
-                            <button mat-icon-button color="warn" (click)="deleteVehiclel(row)">
-                                <mat-icon aria-label="Edit">delete</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-
-            </div>
-
-            <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10, 25, 50, 100]">
-            </mat-paginator>
-        </div>
-    </mat-card-content>
+      <mat-paginator
+        [length]="resultsLength"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+      >
+      </mat-paginator>
+    </div>
+  </mat-card-content>
 </mat-card>

@@ -1,0 +1,274 @@
+<nav class="navbar navbar-light bg-light">
+  <button
+    mat-button
+    class="b"
+    color="primary"
+    (click)="openPDF()"
+    style="float: right"
+  >
+    Download LR
+    <mat-icon mat-icon-button>get_app</mat-icon>
+  </button>
+  <button mat-button class="b" (click)="back()">Back</button>
+</nav>
+
+<div class="container-1">
+  <div>
+    <div class="row">
+      <div class="col-4 text-center">
+        <p>|| Jay Matadi ||</p>
+      </div>
+      <div class="col-4 text-center">
+        <p>|| आईची कृपा ||</p>
+      </div>
+      <div class="col-4 text-center">
+        <p>Subject to Sinnar Jurisdiction</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1>MATOSHREE TRANSPORT</h1>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-12 text-center">
+        <h5>Transport Contractors & Commision Agent (All India Permit)</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">LR. No</div>
+          </div>
+          <input
+            type="text"
+            class="form-control pl-3"
+            id="inlineFormInputGroup"
+            [value]="data.lrNo ? data.lrNo : ''"
+          />
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">LR. No</div>
+          </div>
+          <input
+            type="text"
+            class="form-control pl-3"
+            id="inlineFormInputGroup"
+            [value]="data.lrNo ? data.lrNo : ''"
+          />
+        </div>
+      </div>
+      <div class="col-4">
+        <p>
+          Mathura App, Karpe Nagar, Sarawadi Road, Sinner (Nashik)
+          Mob:9028183151, 84597995903 <br />
+          Email:- dhananjayshinde0306@gmail.com
+        </p>
+      </div>
+      <div class="col-4">
+        <div class="form-group text-center">
+          <label for="formGroupExampleInput">Vehical No.</label>
+          <input
+            type="text"
+            class="form-control pl-3"
+            id="formGroupExampleInput"
+            [value]="data.vehicleNo ? data.vehicleNo : ''"
+          />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-8 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Consignor:-</div>
+          </div>
+          &nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control input-example"
+            id="inlineFormInputGroup"
+            [value]="data.consignor ? data.consignor : ''"
+          />
+        </div>
+      </div>
+      <div class="col-4 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">From:-</div>
+          </div>
+          &nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control input-example"
+            id="inlineFormInputGroup"
+            [value]="data.fromLocation ? data.fromLocation : ''"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Consignee:-</div>
+          </div>
+          &nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control input-example"
+            id="inlineFormInputGroup"
+            [value]="data.consignee ? data.consignee : ''"
+          />
+        </div>
+      </div>
+      <div class="col-4 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">To:-</div>
+          </div>
+          &nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control input-example"
+            id="inlineFormInputGroup"
+            [value]="data.toLocation ? data.toLocation : ''"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <hr />
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr>
+            <th>
+              <i class="fa fa-star"></i>White - Consignor Copy
+              &nbsp;&nbsp;&nbsp;<input type="checkbox" />
+            </th>
+            <th>
+              <i class="fa fa-star"></i>Yellow - Consingnee
+              Copy&nbsp;&nbsp;&nbsp;<input type="checkbox" />
+            </th>
+            <th>
+              <i class="fa fa-star"></i>Pink - Driver
+              Copy&nbsp;&nbsp;&nbsp;<input type="checkbox" />
+            </th>
+            <th colspan="2">
+              <i class="fa fa-star"></i>Green - Account
+              Copy&nbsp;&nbsp;&nbsp;<input type="checkbox" />
+            </th>
+          </tr>
+          <tr>
+            <th scope="col" style="text-align: center">
+              Description of Goods <br /><span>(Said to Contain)</span>
+            </th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Service Tax Payable by</th>
+            <th colspan="2">
+              Amout <br />
+              Rs. &nbsp;&nbsp; Ps.
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">1</td>
+            <td>{{ data?.quantity }}</td>
+            <td>{{ data?.amount }}</td>
+            <td>Consignor &nbsp;&nbsp;&nbsp; <input type="checkbox" /></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row">2</td>
+            <td></td>
+            <td></td>
+            <td>Consignee &nbsp;&nbsp;&nbsp; <input type="checkbox" /></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row">3</td>
+            <td></td>
+            <td></td>
+            <td>Transporter &nbsp;&nbsp;&nbsp; <input type="checkbox" /></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row">3</td>
+            <td></td>
+            <td></td>
+            <td>Tick Which &nbsp;&nbsp;&nbsp; <input type="checkbox" /></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row">3</td>
+            <td></td>
+            <td></td>
+            <td>Is Applicable</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row" style="text-align: center">
+              Return this copy Sign & Stamp <br />
+              शिक्का व सही करून परत घ्यावी
+            </td>
+            <td></td>
+            <td></td>
+            <td>Advance -</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <span
+                ><span style="font-size: 14px; font-weight: 500">Note:</span> If
+                any complaints about goods. Please inforn us whithin 15 days
+                after we are not responsible
+              </span>
+            </td>
+            <td colspan="2">
+              <span class="total">Total: {{ data?.totalAmount }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <p>GST NO: 27DHOPS4610E1Z6</p>
+    </div>
+    <div class="row">
+      <p>PAN NO: DHOPS4610E</p>
+    </div>
+    <div class="row">
+      <div class="col-9 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="padding: 0.375rem 0">
+              Freight Rupees Inwards:-
+            </div>
+          </div>
+          &nbsp;
+          <input
+            type="text"
+            class="form-control input-example"
+            id="inlineFormInputGroup"
+          />
+        </div>
+      </div>
+      <div class="col-3 input-w-line">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="border: 0px">
+              For:- Matoshree Transport
+            </div>
+          </div>
+          <!-- <input type="text" class="form-control input-example" id="inlineFormInputGroup"> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

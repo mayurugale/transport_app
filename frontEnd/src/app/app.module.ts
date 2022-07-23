@@ -28,6 +28,7 @@ import { VehicleTransactionComponent } from './vehicle-list/vehicle-transaction/
 import { ConsignorBillComponent } from './consignor-list/consignor-bill/consignor-bill.component';
 import { ConsignorTransactionComponent } from './consignor-list/consignor-transaction/consignor-transaction.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { LrPdfComponent } from './lr-list/lr-pdf/lr-pdf.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     VehicleTransactionComponent,
     ConsignorBillComponent,
     ConsignorTransactionComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    LrPdfComponent
   ],
   imports: [
     BrowserModule,
